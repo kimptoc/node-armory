@@ -50,6 +50,8 @@ armory._get = function(path, options, callback) {
         err = err || new Error(body.reason)
       } else if (res && res.statusCode && res.statusCode != 200 && res.statusCode != 304) {
         err = err || new Error(body)
+      } else if (body && typeof body != 'object') {
+        err = err+'-expected body to be an object' || new Error(body)
       }
 
       callback.call(this, err, body, res)
